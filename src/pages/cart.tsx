@@ -1,4 +1,4 @@
-import { DeleteIcon } from '@chakra-ui/icons';
+import { DeleteIcon } from "@chakra-ui/icons";
 import {
   Box,
   Flex,
@@ -12,28 +12,29 @@ import {
   Td,
   Divider,
   Stack,
-} from '@chakra-ui/react';
-import { MFInput } from '../components/Form/MFInput';
-import { Formatar } from '../services/Formatar';
-import { useCart } from '../services/hook/useCart';
+} from "@chakra-ui/react";
+import { MFInput } from "../components/Form/MFInput";
+import { Formatar } from "../services/Formatar";
+import { useCart } from "../services/hook/useCart";
+
 export default function Cart() {
   const { cart, removeProduct, valueTotal } = useCart();
 
   return (
-    <Flex h="85vh" justify="space-between" align={'flex-start'}>
+    <Flex h="85vh" justify="space-between" align={"flex-start"}>
       <Flex
-        w={'1200px'}
-        mt={'52px'}
-        ml={'128px'}
+        w={"1200px"}
+        mt={"52px"}
+        ml={"128px"}
         flexDir="column"
         justify="center"
         align="center"
       >
-        <Box fontWeight="semibold" as="h4" fontSize={'24px'} lineHeight="tight">
+        <Box fontWeight="semibold" as="h4" fontSize={"24px"} lineHeight="tight">
           <Text
             fontSize="md"
             fontFamily="Montserrat"
-            size={'24px'}
+            size={"24px"}
             fontWeight={500}
           >
             Your cart
@@ -46,7 +47,7 @@ export default function Cart() {
                 align="left"
                 fontFamily="Montserrat"
                 fontSize="14px"
-                fontWeight={'bold'}
+                fontWeight={"bold"}
                 pb="0"
                 pl="5"
                 pr="5"
@@ -58,7 +59,7 @@ export default function Cart() {
                 align="left"
                 fontFamily="Montserrat"
                 fontSize="14px"
-                fontWeight={'bold'}
+                fontWeight={"bold"}
                 pb="0"
                 pl="5"
                 pr="5"
@@ -69,7 +70,7 @@ export default function Cart() {
               <Th
                 fontFamily="Montserrat"
                 fontSize="14px"
-                fontWeight={'bold'}
+                fontWeight={"bold"}
                 align="left"
                 pb="0"
                 pl="5"
@@ -82,7 +83,7 @@ export default function Cart() {
                 align="left"
                 fontFamily="Montserrat"
                 fontSize="14px"
-                fontWeight={'bold'}
+                fontWeight={"bold"}
                 pb="0"
                 pl="5"
                 pr="5"
@@ -92,7 +93,7 @@ export default function Cart() {
               </Th>
               <Th></Th>
             </Thead>
-            <Tbody fontFamily="Montserrat" fontSize={'14pxp'}>
+            <Tbody fontFamily="Montserrat" fontSize={"14pxp"}>
               {cart.map((item) => (
                 <Tr key={item.id}>
                   <Td pb="0" pl="5" pr="5" pt="0" maxW="200px">
@@ -121,11 +122,11 @@ export default function Cart() {
             </Tbody>
           </Table>
 
-          <Stack bgColor={'gray.700'}>
-            <Divider orientation="horizontal" bgColor={'gray.700'} />
+          <Stack bgColor={"gray.700"}>
+            <Divider orientation="horizontal" bgColor={"gray.700"} />
           </Stack>
 
-          <Flex mt={5} ml={10} w="75%" justify={'end'} as="h4">
+          <Flex mt={5} ml={10} w="75%" justify={"end"} as="h4">
             <Text mr={5} fontSize="xs" fontFamily="Montserrat" fontWeight={500}>
               Subtotal
             </Text>
@@ -154,7 +155,7 @@ export default function Cart() {
           h="40px"
           borderColor="black"
         />
-        <Flex mt={5} ml={10} w="75%" justify={'space-between'} as="h4">
+        <Flex mt={5} ml={10} w="75%" justify={"space-between"} as="h4">
           <Text mr={5} fontSize="sm" fontFamily="Montserrat" fontWeight={500}>
             Subtotal
           </Text>
@@ -162,7 +163,7 @@ export default function Cart() {
             R$ 29,80
           </Text>
         </Flex>
-        <Flex mt={5} mb={2} ml={10} w="75%" justify={'space-between'} as="h4">
+        <Flex mt={5} mb={2} ml={10} w="75%" justify={"space-between"} as="h4">
           <Text mr={5} fontSize="sm" fontFamily="Montserrat" fontWeight={500}>
             Discount
           </Text>
@@ -171,10 +172,10 @@ export default function Cart() {
           </Text>
         </Flex>
 
-        <Stack bgColor={'gray.700'}>
-          <Divider orientation="horizontal" bgColor={'gray.700'} />
+        <Stack bgColor={"gray.700"}>
+          <Divider orientation="horizontal" bgColor={"gray.700"} />
         </Stack>
-        <Flex mt={5} ml={10} w="75%" justify={'space-between'} as="h4">
+        <Flex mt={5} ml={10} w="75%" justify={"space-between"} as="h4">
           <Text mr={5} fontSize="sm" fontFamily="Montserrat" fontWeight={500}>
             Total
           </Text>
@@ -182,7 +183,7 @@ export default function Cart() {
             R$ 29,80
           </Text>
         </Flex>
-        <Flex mt={20} flexDirection={'column'}>
+        <Flex mt={20} flexDirection={"column"}>
           <Stack spacing={8}>
             <Button
               bgColor="black"
@@ -193,7 +194,7 @@ export default function Cart() {
               borderRadius="20rem"
               fontWeight={400}
               _hover={{
-                bgColor: 'gray.700',
+                bgColor: "gray.700",
               }}
             >
               CHECKOUT
@@ -206,7 +207,7 @@ export default function Cart() {
               fontSize="xs"
               fontWeight={400}
               _hover={{
-                bgColor: 'gray.300',
+                bgColor: "gray.300",
               }}
             >
               KEEP BUYING
