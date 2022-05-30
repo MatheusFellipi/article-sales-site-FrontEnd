@@ -1,27 +1,26 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import isHotkey from 'is-hotkey';
-import { Editable, withReact, useSlate, Slate, ReactEditor } from 'slate-react';
+import React, { useCallback, useMemo, useState } from "react";
+import isHotkey from "is-hotkey";
+import { Editable, withReact, useSlate, Slate, ReactEditor } from "slate-react";
 import {
   Editor,
   Transforms,
   createEditor,
   Descendant,
   Element as SlateElement,
-} from 'slate';
+} from "slate";
 
-import { withHistory } from 'slate-history';
+import { withHistory } from "slate-history";
 
-import { Button, Icon, Toolbar } from '../../components/Articles/Editor';
-
+import { Button, Icon, Toolbar } from "../../components/articles/Editor";
 
 const HOTKEYS = {
-  'mod+b': 'bold',
-  'mod+i': 'italic',
-  'mod+u': 'underline',
-  'mod+`': 'code',
+  "mod+b": "bold",
+  "mod+i": "italic",
+  "mod+u": "underline",
+  "mod+`": "code",
 };
 
-const LIST_TYPES = ['numbered-list', 'bulleted-list'];
+const LIST_TYPES = ["numbered-list", "bulleted-list"];
 
 const RichTextExample = () => {
   const [value, setValue] = useState<Descendant[]>(initialValue);
@@ -33,22 +32,22 @@ const RichTextExample = () => {
   );
 
   const props = {
-    id: '6d83b430-c674-4a41-a074-bf37dc13157b',
-    title: 'What was the trend in 2020 and you didn’t use it',
-    user_id: '7339bbfc-5e3e-4d2e-9664-acec9cefad25',
-    amount: '10',
-    themes: 'UX Design, Business, Sales User Research',
-    text: '',
+    id: "6d83b430-c674-4a41-a074-bf37dc13157b",
+    title: "What was the trend in 2020 and you didn’t use it",
+    user_id: "7339bbfc-5e3e-4d2e-9664-acec9cefad25",
+    amount: "10",
+    themes: "UX Design, Business, Sales User Research",
+    text: "",
     img_url: null,
     isDeleted: false,
-    created_at: '2022-01-24T20:29:28.659Z',
-    update_at: '2022-01-24T20:29:28.659Z',
+    created_at: "2022-01-24T20:29:28.659Z",
+    update_at: "2022-01-24T20:29:28.659Z",
   };
 
   function teste() {
     const content = JSON.stringify(value);
 
-    localStorage.setItem('content', content);
+    localStorage.setItem("content", content);
 
     const n = {
       ...props,
@@ -62,7 +61,6 @@ const RichTextExample = () => {
 
   return (
     <div>
-
       <Slate
         editor={editor}
         value={value}
@@ -115,7 +113,7 @@ const toggleBlock = (editor, format) => {
     split: true,
   });
   const newProperties: Partial<SlateElement> = {
-    type: isActive ? 'paragraph' : isList ? 'list-item' : format,
+    type: isActive ? "paragraph" : isList ? "list-item" : format,
   };
   Transforms.setNodes(editor, newProperties);
 
@@ -151,17 +149,17 @@ const isMarkActive = (editor, format) => {
 
 const Element = ({ attributes, children, element }) => {
   switch (element.type) {
-    case 'block-quote':
+    case "block-quote":
       return <blockquote {...attributes}>{children}</blockquote>;
-    case 'bulleted-list':
+    case "bulleted-list":
       return <ul {...attributes}>{children}</ul>;
-    case 'heading-one':
+    case "heading-one":
       return <h1 {...attributes}>{children}</h1>;
-    case 'heading-two':
+    case "heading-two":
       return <h2 {...attributes}>{children}</h2>;
-    case 'list-item':
+    case "list-item":
       return <li {...attributes}>{children}</li>;
-    case 'numbered-list':
+    case "numbered-list":
       return <ol {...attributes}>{children}</ol>;
     default:
       return <p {...attributes}>{children}</p>;
@@ -217,7 +215,5 @@ const MarkButton = ({ format, icon }) => {
     </Button>
   );
 };
-
-
 
 export default RichTextExample;

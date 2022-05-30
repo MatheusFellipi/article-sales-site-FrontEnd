@@ -1,29 +1,34 @@
-import { Flex, Button, Box, Image, Text, Stack } from '@chakra-ui/react';
-import { setCookie } from 'nookies';
-import { FormEvent, SyntheticEvent, useState } from 'react';
-import { useRouter } from 'next/router';
+import { FormEvent, SyntheticEvent, useState } from "react";
+import { Flex, Button, Box, Image, Text, Stack } from "@chakra-ui/react";
 
-import { MFInput } from '../components/Form/MFInput';
-import { useAuth } from '../services/hook/auth';
-import { UserType } from '../services/Type';
+import { MFInput } from "../components/form/MFInput";
+import { useAuth } from "../hook/auth";
 
 type InitialValuesType = {
   email: string;
   password: string;
 };
 
+type UserType = {
+  token: string;
+  user: {
+    email: string;
+    name: string;
+  };
+};
 
-export default function login() {
+export default function Login() {
   const { signin } = useAuth();
+
   const initialValue = {
-    email: 'matheus.fellipi@hotmail.com',
-    password: '1234578',
+    email: "matheus.fellipi@hotmail.com",
+    password: "1234578",
   };
 
   const [values, setValues] = useState<InitialValuesType>(initialValue);
 
   function handleChanger(event: FormEvent<HTMLInputElement>) {
-    const fieldName = event.currentTarget.getAttribute('name');
+    const fieldName = event.currentTarget.getAttribute("name");
     const value = event.currentTarget.value;
 
     setValues({
@@ -35,9 +40,9 @@ export default function login() {
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
 
-    const responose = await fetch('http://localhost:3333/sessions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const responose = await fetch("http://localhost:3333/sessions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
     });
     const data: UserType = await responose.json();
@@ -72,7 +77,7 @@ export default function login() {
         </Box>
 
         <Box>
-          <Stack spacing={'10'}>
+          <Stack spacing={"10"}>
             <MFInput
               placeholder="E-mail"
               id="email"
@@ -116,10 +121,10 @@ export default function login() {
           type="submit"
           onClick={handleSubmit}
           mb="5rem"
-          bgColor={'blue.600'}
+          bgColor={"blue.600"}
           color="white"
           _hover={{
-            bgColor: 'blue.700',
+            bgColor: "blue.700",
           }}
         >
           Sign in

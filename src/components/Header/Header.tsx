@@ -1,9 +1,10 @@
-import { Image, Box, Flex, Button, Center } from '@chakra-ui/react';
-import NextLink from 'next/link';
-import { useRouter } from 'next/router';
-import { parseCookies, setCookie } from 'nookies';
-import { useEffect, useState } from 'react';
-import { useAuth } from '../../services/hook/auth';
+import { Image, Box, Flex, Button, Center } from "@chakra-ui/react";
+import NextLink from "next/link";
+import { useRouter } from "next/router";
+import { parseCookies } from "nookies";
+import { useEffect, useState } from "react";
+import { useAuth } from "../../hook/auth";
+
 export function Header() {
   const route = useRouter();
   const { signout } = useAuth();
@@ -13,7 +14,7 @@ export function Header() {
   const [hideOrShowDashBtn, setHideOrShowDashBtn] = useState<boolean>(false);
 
   const [isLogin, setisLogin] = useState<boolean>(() => {
-    const { ['togdesign:token']: token } = parseCookies();
+    const { ["togdesign:token"]: token } = parseCookies();
     if (token) {
       return true;
     } else {
@@ -22,28 +23,28 @@ export function Header() {
   });
 
   useEffect(() => {
-    route.route === '/cart' ? setWhitGray(false) : setWhitGray(true);
-    route.route === '/dashboard/write'
+    route.route === "/cart" ? setWhitGray(false) : setWhitGray(true);
+    route.route === "/dashboard/write"
       ? setHideOrShow(true)
       : setHideOrShow(false);
 
-    if (route.route === '/login') {
+    if (route.route === "/login") {
       setHideOrShow(true);
     } else {
       setHideOrShow(false);
     }
 
     if (
-      route.route === '/dashboard' ||
-      route.route === '/dashboard/published' ||
-      route.route === '/dashboard/purchased'
+      route.route === "/dashboard" ||
+      route.route === "/dashboard/published" ||
+      route.route === "/dashboard/purchased"
     ) {
       setHideOrShowDashBtn(true);
     } else {
       setHideOrShowDashBtn(false);
     }
 
-    const { ['togdesign:token']: token } = parseCookies();
+    const { ["togdesign:token"]: token } = parseCookies();
     if (token) {
       setisLogin(true);
     } else {
@@ -56,9 +57,9 @@ export function Header() {
       hidden={hideOrShow}
       as="header"
       height={"120px"}
-      justify={'space-between'}
+      justify={"space-between"}
     >
-      <Box marginTop={'32px'} ml={'20rem'}>
+      <Box marginTop={"32px"} ml={"20rem"}>
         <NextLink href="/" passHref>
           <Box cursor="pointer" w="10rem">
             <Image src="tog.svg" alt="tog design" />
@@ -69,10 +70,10 @@ export function Header() {
       <Flex
         align="center"
         justify="space-around"
-        maxW={'400px'}
+        maxW={"400px"}
         w="400px"
-        h={'100%'}
-        bgColor={whitGray ? 'gray.50' : 'gray.200'}
+        h={"100%"}
+        bgColor={whitGray ? "gray.50" : "gray.200"}
       >
         {!!hideOrShowDashBtn && (
           <NextLink href="/dashboard/write" passHref>
@@ -82,8 +83,8 @@ export function Header() {
               fontWeight="bold"
               fontSize="12px"
               borderRadius={10}
-              w={'106px'}
-              h={'38px'}
+              w={"106px"}
+              h={"38px"}
             >
               Write now
             </Button>
@@ -91,7 +92,7 @@ export function Header() {
         )}
 
         <Box
-          marginTop={'32px'}
+          marginTop={"32px"}
           as="button"
           height="3rem"
           width="3rem"
@@ -99,13 +100,13 @@ export function Header() {
           borderRadius="2rem"
           fontSize="16px"
           bg="gray.300"
-          _hover={{ bg: '#A9A7B0' }}
+          _hover={{ bg: "#A9A7B0" }}
           _active={{
-            bg: '#A9A7B0',
+            bg: "#A9A7B0",
           }}
           _focus={{
             boxShadow:
-              '0 0 1px 2px rgba(88, 144, 255, .75), 0 1px 1px rgba(0, 0, 0, .15)',
+              "0 0 1px 2px rgba(88, 144, 255, .75), 0 1px 1px rgba(0, 0, 0, .15)",
           }}
         >
           <NextLink href="/cart" passHref>
@@ -123,14 +124,14 @@ export function Header() {
         {isLogin ? (
           <Button
             onClick={signout}
-            color={'white'}
-            marginTop={'32px'}
-            mr={'102px'}
-            bgColor={'purple.600'}
+            color={"white"}
+            marginTop={"32px"}
+            mr={"102px"}
+            bgColor={"purple.600"}
             fontWeight="bold"
             fontSize="12px"
-            w={'86px'}
-            h={'38px'}
+            w={"86px"}
+            h={"38px"}
             _hover={{
               filter: `brightness(0.9)`,
             }}
@@ -141,10 +142,10 @@ export function Header() {
         ) : (
           <NextLink href="/login" passHref>
             <Button
-              color={'white'}
-              marginTop={'32px'}
-              mr={'102px'}
-              bgColor={'purple.600'}
+              color={"white"}
+              marginTop={"32px"}
+              mr={"102px"}
+              bgColor={"purple.600"}
               fontWeight="bold"
               fontSize="12px"
             >

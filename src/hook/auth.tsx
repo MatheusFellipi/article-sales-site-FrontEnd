@@ -1,8 +1,15 @@
-import { createContext, ReactNode, useContext, useState } from 'react';
+import { createContext, ReactNode, useContext, useState } from "react";
 
-import { destroyCookie, parseCookies, setCookie } from 'nookies';
-import { useRouter } from 'next/router';
-import { UserType } from '../Type';
+import { destroyCookie, parseCookies, setCookie } from "nookies";
+import { useRouter } from "next/router";
+
+type UserType = {
+  token: string;
+  user: {
+    email: string;
+    name: string;
+  };
+};
 
 interface AuthContextData {
   signin: (data: UserType) => void;
@@ -19,28 +26,28 @@ interface AuthProviderProps {
 export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
   const route = useRouter();
   const usersInitial = {
-    token: '',
+    token: "",
     user: {
-      email: '',
-      name: '',
+      email: "",
+      name: "",
     },
-  };
+  } as UserType;
 
   const [user, setUser] = useState<UserType>(usersInitial);
 
   const signin = (data: UserType) => {
-    setCookie(null, 'togdesign:token', data.token, {
+    setCookie(null, "togdesign:token", data.token, {
       maxAge: 30 * 24 * 60 * 60,
-      path: '/',
+      path: "/",
     });
-    route.push('/dashboard');
+    route.push("/dashboard");
     setUser(data);
   };
 
   const signout = () => {
     setUser(usersInitial);
-    destroyCookie(null, 'togdesign:token');
-    route.push('/login');
+    destroyCookie(null, "togdesign:token");
+    route.push("/login");
   };
 
   return (

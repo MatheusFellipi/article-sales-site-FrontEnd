@@ -1,9 +1,9 @@
-import { ChakraProvider } from '@chakra-ui/react';
-import { Header } from '../components/Header/Header';
-import { AuthProvider } from '../services/hook/auth';
-import { CartProvider } from '../services/hook/useCart';
-import { theme } from '../styles/theme';
-import '../styles/teste.css';
+import { ChakraProvider } from "@chakra-ui/react";
+import { Header } from "../components/header/Header";
+import { theme } from "../styles/theme";
+import "../styles/teste.css";
+import { CartProvider } from "../hook/useCart";
+import { AuthProvider } from "../hook/auth";
 
 function MyApp({ Component, pageProps }) {
   return (

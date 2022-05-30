@@ -1,29 +1,29 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from "react";
 
-import { Box, Button, Flex, Image, Input } from '@chakra-ui/react';
-import NextLink from 'next/link';
+import { Box, Button, Flex, Image, Input } from "@chakra-ui/react";
+import NextLink from "next/link";
 
-import isHotkey from 'is-hotkey';
-import { Editable, withReact, useSlate, Slate, ReactEditor } from 'slate-react';
+import isHotkey from "is-hotkey";
+import { Editable, withReact, useSlate, Slate, ReactEditor } from "slate-react";
 import {
   Editor,
   Transforms,
   createEditor,
   Descendant,
   Element as SlateElement,
-} from 'slate';
-import { withHistory } from 'slate-history';
+} from "slate";
+import { withHistory } from "slate-history";
 
-import { Button as Btn, Icon, Toolbar } from '../../components/Articles/Editor';
+import { Button as Btn, Icon, Toolbar } from "../../components/articles/Editor";
 
 const HOTKEYS = {
-  'mod+b': 'bold',
-  'mod+i': 'italic',
-  'mod+u': 'underline',
-  'mod+`': 'code',
+  "mod+b": "bold",
+  "mod+i": "italic",
+  "mod+u": "underline",
+  "mod+`": "code",
 };
 
-const LIST_TYPES = ['numbered-list', 'bulleted-list'];
+const LIST_TYPES = ["numbered-list", "bulleted-list"];
 
 export default function Write() {
   const [value, setValue] = useState<Descendant[]>(initialValue);
@@ -36,30 +36,30 @@ export default function Write() {
 
   return (
     <>
-      <Flex as="header" height={120} w={'100%'} justify={'space-between'}>
-        <Box marginTop={'32px'} ml={'183px'}>
+      <Flex as="header" height={120} w={"100%"} justify={"space-between"}>
+        <Box marginTop={"32px"} ml={"183px"}>
           <Box w="10rem">
             <Image src="tog.svg" alt="tog design" />
           </Box>
         </Box>
 
-        <Flex mr={'82px'} mt={'33px'}>
+        <Flex mr={"82px"} mt={"33px"}>
           <NextLink href="/dashboard" passHref>
-            <Button colorScheme={'orange'} mr={'48px'}>
+            <Button colorScheme={"orange"} mr={"48px"}>
               Cancel
             </Button>
           </NextLink>
-          <Button colorScheme={'purple'}>Publish</Button>
+          <Button colorScheme={"purple"}>Publish</Button>
         </Flex>
       </Flex>
 
       <Flex
-        justify={'space-between'}
-        height={'100vh'}
-        align={'center'}
-        flexDirection={'column'}
+        justify={"space-between"}
+        height={"100vh"}
+        align={"center"}
+        flexDirection={"column"}
       >
-        <Flex flexDirection={'column'} justify={'center'} align={'center'}>
+        <Flex flexDirection={"column"} justify={"center"} align={"center"}>
           <Box>
             <Input></Input>
             <Box>
@@ -113,7 +113,7 @@ export default function Write() {
           </Box>
         </Flex>
 
-        <Flex w={'545px'} h={'106px'} bgColor={'black'} as={'footer'}></Flex>
+        <Flex w={"545px"} h={"106px"} bgColor={"black"} as={"footer"}></Flex>
       </Flex>
     </>
   );
@@ -132,7 +132,7 @@ const toggleBlock = (editor, format) => {
   });
 
   const newProperties: Partial<SlateElement> = {
-    type: isActive ? 'paragraph' : isList ? 'list-item' : format,
+    type: isActive ? "paragraph" : isList ? "list-item" : format,
   };
   Transforms.setNodes(editor, newProperties);
 
@@ -168,17 +168,17 @@ const isMarkActive = (editor, format) => {
 
 const Element = ({ attributes, children, element }) => {
   switch (element.type) {
-    case 'block-quote':
+    case "block-quote":
       return <blockquote {...attributes}>{children}</blockquote>;
-    case 'bulleted-list':
+    case "bulleted-list":
       return <ul {...attributes}>{children}</ul>;
-    case 'heading-one':
+    case "heading-one":
       return <h1 {...attributes}>{children}</h1>;
-    case 'heading-two':
+    case "heading-two":
       return <h2 {...attributes}>{children}</h2>;
-    case 'list-item':
+    case "list-item":
       return <li {...attributes}>{children}</li>;
-    case 'numbered-list':
+    case "numbered-list":
       return <ol {...attributes}>{children}</ol>;
     default:
       return <p {...attributes}>{children}</p>;
@@ -237,7 +237,7 @@ const MarkButton = ({ format, icon }) => {
 
 const initialValue: Descendant[] = [
   {
-    type: 'paragraph',
-    children: [{ text: 'Tell your story … ' }],
+    type: "paragraph",
+    children: [{ text: "Tell your story … " }],
   },
 ];

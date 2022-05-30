@@ -1,4 +1,4 @@
-import { DeleteIcon } from '@chakra-ui/icons';
+import { DeleteIcon } from "@chakra-ui/icons";
 import {
   Box,
   Flex,
@@ -9,15 +9,15 @@ import {
   Th,
   Thead,
   Tr,
-} from '@chakra-ui/react';
-import { GetServerSideProps } from 'next';
-import { parseCookies } from 'nookies';
-import { useState } from 'react';
-import { BiBook, BiEdit, BiLineChart } from 'react-icons/bi';
-import { CardDashInfo } from '../../components/CardDashInfo/CardDashInfo';
-import { Formatar } from '../../services/Formatar';
-import Highcharts from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
+} from "@chakra-ui/react";
+import { GetServerSideProps } from "next";
+import { parseCookies } from "nookies";
+import { useState } from "react";
+import { BiBook, BiEdit, BiLineChart } from "react-icons/bi";
+import { CardDashInfo } from "../../components/cardDashInfo/CardDashInfo";
+import Highcharts from "highcharts";
+import HighchartsReact from "highcharts-react-official";
+import { Formatar } from "../../services/formata";
 
 type DashboardType = {
   dashboard: {
@@ -40,20 +40,20 @@ export default function Dashboard(dashborad: DashboardType) {
   console.log(data.dashboard.options);
 
   return (
-    <Flex justify={'end'} p="10">
+    <Flex justify={"end"} p="10">
       <Flex
-        flexDirection={'column'}
+        flexDirection={"column"}
         borderRadius={10}
-        justify={'start'}
-        mr={'96px'}
+        justify={"start"}
+        mr={"96px"}
         w={1080}
       >
         <Box
-          mb={'32px'}
-          bgColor={'white'}
+          mb={"32px"}
+          bgColor={"white"}
           w={900}
           borderRadius={10}
-          as={'section'}
+          as={"section"}
         >
           <HighchartsReact
             highcharts={Highcharts}
@@ -61,14 +61,14 @@ export default function Dashboard(dashborad: DashboardType) {
           />
         </Box>
         <Box
-          bgColor={'white'}
+          bgColor={"white"}
           w={900}
           h={335}
-          mt={'32px'}
-          as={'section'}
+          mt={"32px"}
+          as={"section"}
           borderRadius={10}
-          px={'16px'}
-          py={'24px'}
+          px={"16px"}
+          py={"24px"}
         >
           <Box
             mt="1"
@@ -103,7 +103,7 @@ export default function Dashboard(dashborad: DashboardType) {
               <Tbody>
                 {data.dashboard.listSales.map((item) => (
                   <Tr key={item.id}>
-                    <Td maxW={'305px'}>{item.title}</Td>
+                    <Td maxW={"305px"}>{item.title}</Td>
                     <Td>Tog.design</Td>
                     <Td>2</Td>
                     <Td>{Formatar.Money(item.amount)}</Td>
@@ -117,41 +117,41 @@ export default function Dashboard(dashborad: DashboardType) {
 
       <Box>
         <CardDashInfo
-          marginRight={'20px'}
+          marginRight={"20px"}
           inf={[
             {
-              themes: 'Published articles',
+              themes: "Published articles",
               total: 2,
             },
             {
-              themes: 'Sales of articles',
+              themes: "Sales of articles",
               total: 2,
             },
             {
-              themes: 'Read articles',
+              themes: "Read articles",
               total: 2,
             },
             {
-              themes: 'Purchased articles',
+              themes: "Purchased articles",
               total: 2,
             },
             {
-              themes: 'Citations received',
+              themes: "Citations received",
               total: 2,
             },
           ]}
           links={[
             {
-              href: '/dashboard/purchased',
+              href: "/dashboard/purchased",
               icon: BiBook,
             },
             {
-              href: '/dashboard/published',
+              href: "/dashboard/published",
               icon: BiEdit,
             },
           ]}
           title={{
-            name: 'dashboard',
+            name: "dashboard",
             icon: BiLineChart,
           }}
         />
@@ -161,12 +161,12 @@ export default function Dashboard(dashborad: DashboardType) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { ['togdesign:token']: token } = parseCookies(ctx);
+  const { ["togdesign:token"]: token } = parseCookies(ctx);
 
-  const responce = await fetch('http://localhost:3333/dashboard/', {
-    method: 'GET',
+  const responce = await fetch("http://localhost:3333/dashboard/", {
+    method: "GET",
     headers: {
-      authorization: 'Bearer ' + token,
+      authorization: "Bearer " + token,
     },
   });
 
@@ -175,7 +175,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (!token) {
     return {
       redirect: {
-        destination: '/',
+        destination: "/",
         permanent: false,
       },
     };

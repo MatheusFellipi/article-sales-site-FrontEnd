@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { GetServerSideProps } from 'next';
-import { parseCookies } from 'nookies';
-import { Flex } from '@chakra-ui/react';
+import { useState } from "react";
+import { GetServerSideProps } from "next";
+import { parseCookies } from "nookies";
+import { Flex } from "@chakra-ui/react";
 
-import { BiBook, BiEdit, BiLineChart } from 'react-icons/bi';
+import { BiBook, BiEdit, BiLineChart } from "react-icons/bi";
 
-import { CardDashInfo } from '../../components/CardDashInfo/CardDashInfo';
-import { Articles } from '../../components/Articles/Articles';
+import { CardDashInfo } from "../../components/cardDashInfo/CardDashInfo";
+import { Articles } from "../../components/articles/Articles";
 
 type PurchasedType = {
   purchased: {
@@ -43,29 +43,29 @@ export default function Purchased(purchased: PurchasedType) {
   return (
     <Flex
       p="10"
-      width={'100%'}
-      alignItems={'flex-start'}
+      width={"100%"}
+      alignItems={"flex-start"}
       justifyContent="flex-end"
     >
-      <Flex flexWrap={'wrap'} pl="15rem" pb="1rem" w="80%">
+      <Flex flexWrap={"wrap"} pl="15rem" pb="1rem" w="80%">
         <Articles article={data.purchased.listItemsPuschasedArticles} />
       </Flex>
 
       <CardDashInfo
-        marginRight={'20px'}
+        marginRight={"20px"}
         inf={data.purchased.themes}
         links={[
           {
-            href: '/dashboard',
+            href: "/dashboard",
             icon: BiLineChart,
           },
           {
-            href: '/dashboard/published',
+            href: "/dashboard/published",
             icon: BiEdit,
           },
         ]}
         title={{
-          name: 'Purchased articles',
+          name: "Purchased articles",
           icon: BiBook,
         }}
       />
@@ -74,12 +74,12 @@ export default function Purchased(purchased: PurchasedType) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { ['togdesign:token']: token } = parseCookies(ctx);
+  const { ["togdesign:token"]: token } = parseCookies(ctx);
 
-  const responce = await fetch('http://localhost:3333/dashboard/purchased', {
-    method: 'GET',
+  const responce = await fetch("http://localhost:3333/dashboard/purchased", {
+    method: "GET",
     headers: {
-      authorization: 'Bearer ' + token,
+      authorization: "Bearer " + token,
     },
   });
 
@@ -88,7 +88,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (!token) {
     return {
       redirect: {
-        destination: '/',
+        destination: "/",
         permanent: false,
       },
     };

@@ -1,11 +1,11 @@
-import { Box, Flex, Heading, Stack, Text } from '@chakra-ui/react';
-import { GetStaticProps } from 'next';
-import { Articles } from '../components/Articles/Articles';
+import { Box, Flex, Heading, Stack, Text } from "@chakra-ui/react";
+import { GetStaticProps } from "next";
+import { Articles } from "../components/articles/Articles";
 export default function Home({ article }) {
   return (
     <Box as="main" h="100vh">
       <Flex flexDirection="row">
-        <Flex flexWrap={'wrap'} pl="15rem" pb="1rem" w="80%">
+        <Flex flexWrap={"wrap"} pl="15rem" pb="1rem" w="80%">
           <Articles article={article} />
         </Flex>
 
@@ -61,7 +61,7 @@ export default function Home({ article }) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const response = await fetch('http://localhost:3333/article');
+  const response = await fetch("http://localhost:3333/article");
   const data = await response.json();
   return {
     props: {

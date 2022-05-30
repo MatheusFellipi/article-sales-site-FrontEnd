@@ -13,9 +13,9 @@ import {
   Divider,
   Stack,
 } from "@chakra-ui/react";
-import { MFInput } from "../components/Form/MFInput";
-import { Formatar } from "../services/Formatar";
-import { useCart } from "../services/hook/useCart";
+import { MFInput } from "../components/form/MFInput";
+import { Formatar } from "../services/formata";
+import { useCart } from "../hook/useCart";
 
 export default function Cart() {
   const { cart, removeProduct, valueTotal } = useCart();

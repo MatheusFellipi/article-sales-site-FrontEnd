@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { GetServerSideProps } from 'next';
-import { DeleteIcon } from '@chakra-ui/icons';
-import { parseCookies } from 'nookies';
+import { useState } from "react";
+import { GetServerSideProps } from "next";
+import { DeleteIcon } from "@chakra-ui/icons";
+import { parseCookies } from "nookies";
 import {
   Box,
   Flex,
@@ -13,12 +13,12 @@ import {
   Tbody,
   Button,
   TableContainer,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
-import { BiBook, BiEdit, BiLineChart } from 'react-icons/bi';
+import { BiBook, BiEdit, BiLineChart } from "react-icons/bi";
 
-import { CardDashInfo } from '../../components/CardDashInfo/CardDashInfo';
-import { Formatar } from '../../services/Formatar';
+import { CardDashInfo } from "../../components/cardDashInfo/CardDashInfo";
+import { Formatar } from "../../ultis/Formatar";
 
 type PublishedType = {
   published: {
@@ -49,11 +49,11 @@ export default function Published(published: PublishedType) {
   return (
     <Flex
       p="10"
-      width={'100%'}
-      alignItems={'flex-start'}
+      width={"100%"}
+      alignItems={"flex-start"}
       justifyContent="flex-end"
     >
-      <Box w="1080px" mr={'100px'}>
+      <Box w="1080px" mr={"100px"}>
         <TableContainer
           fontFamily="Montserrat"
           fontSize="16px"
@@ -78,12 +78,12 @@ export default function Published(published: PublishedType) {
             <Tbody>
               {datas.published.listArticle.map((item) => (
                 <Tr key={item.id}>
-                  <Td maxW={'305px'}>{item.title}</Td>
+                  <Td maxW={"305px"}>{item.title}</Td>
                   <Td>Tog.design</Td>
                   <Td>{Formatar.Data(item.created_at)}</Td>
                   <Td>{Formatar.Money(item.amount)}</Td>
                   <Td>
-                    <Box as="p" w={'100%'}>
+                    <Box as="p" w={"100%"}>
                       <Button colorScheme="gray" variant="ghost">
                         <DeleteIcon />
                       </Button>
@@ -97,20 +97,20 @@ export default function Published(published: PublishedType) {
       </Box>
 
       <CardDashInfo
-          marginRight={'20px'}
-          inf={datas.published.themes}
+        marginRight={"20px"}
+        inf={datas.published.themes}
         links={[
           {
-            href: '/dashboard',
+            href: "/dashboard",
             icon: BiLineChart,
           },
           {
-            href: '/dashboard/purchased',
+            href: "/dashboard/purchased",
             icon: BiBook,
           },
         ]}
         title={{
-          name: 'Articles you wrote',
+          name: "Articles you wrote",
           icon: BiEdit,
         }}
       />
@@ -119,23 +119,23 @@ export default function Published(published: PublishedType) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { ['togdesign:token']: token } = parseCookies(ctx);
+  const { ["togdesign:token"]: token } = parseCookies(ctx);
 
-  const responce = await fetch('http://localhost:3333/dashboard/published', {
-    method: 'GET',
+  const responce = await fetch("http://localhost:3333/dashboard/published", {
+    method: "GET",
     headers: {
-      authorization: 'Bearer ' + token,
+      authorization: "Bearer " + token,
     },
   });
 
   console.log(responce);
-  
+
   const data = await responce.json();
 
   if (!token) {
     return {
       redirect: {
-        destination: '/',
+        destination: "/",
         permanent: false,
       },
     };
