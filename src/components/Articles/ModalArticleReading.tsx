@@ -16,11 +16,11 @@ import {
   CloseButton,
   Divider,
   Stack,
-} from '@chakra-ui/react';
-import { useEffect, useMemo, useState } from 'react';
-import { createEditor, Descendant } from 'slate';
-import { Editable, ReactEditor, Slate, withReact } from 'slate-react';
-import { useCart } from '../../services/hook/useCart';
+} from "@chakra-ui/react";
+import { useEffect, useMemo, useState } from "react";
+import { createEditor, Descendant } from "slate";
+import { Editable, ReactEditor, Slate, withReact } from "slate-react";
+import { useCart } from "../../hook/useCart";
 
 type UsersType = {
   name: string;
@@ -82,11 +82,11 @@ export function ModalArticleReading({
           <ModalCloseButton />
           <ModalBody>
             {article && (
-              <Flex justifyContent={'center'}>
-                <Box maxW={'430'} pos="relative">
+              <Flex justifyContent={"center"}>
+                <Box maxW={"430"} pos="relative">
                   <Image src={article.img_url} alt={article.title} />
                   <Box
-                    padding={'3'}
+                    padding={"3"}
                     mt="1"
                     fontWeight="semibold"
                     as="h4"
@@ -105,23 +105,23 @@ export function ModalArticleReading({
                   )}
                   <Flex h="xs">
                     <Flex
-                      direction={'column'}
-                      alignItems={'start'}
+                      direction={"column"}
+                      alignItems={"start"}
                       w="100%"
-                      alignContent={'start'}
+                      alignContent={"start"}
                     >
                       <Text fontSize="14">
                         To continue reading, you need to buy this article.
                       </Text>
                       <Text fontSize="14" mt="0.5">
-                        you can continue this readinf for olny {article.amount}{' '}
+                        you can continue this readinf for olny {article.amount}{" "}
                         paid your on card
                       </Text>
-                      <Flex w="100%" mt="10" justifyContent={'center'}>
+                      <Flex w="100%" mt="10" justifyContent={"center"}>
                         <Button
                           mt="2"
                           colorScheme="cyan"
-                          color={'white'}
+                          color={"white"}
                           size="lg"
                           onClick={() => addProduct(article)}
                         >
@@ -135,25 +135,25 @@ export function ModalArticleReading({
             )}
           </ModalBody>
           <ModalFooter>
-            <Flex mt="0.5rem" alignItems={'center'} bottom="1">
+            <Flex mt="0.5rem" alignItems={"center"} bottom="1">
               <Flex>
                 <Avatar
-                  borderColor={'yellow.300'}
+                  borderColor={"yellow.300"}
                   showBorder
                   size="md"
                   name="Dan Abrahmov"
                   src="https://bit.ly/dan-abramov"
                 />
                 <Box ml="2">
-                  <Text fontSize="xs" fontWeight="bold" flexWrap={'nowrap'}>
+                  <Text fontSize="xs" fontWeight="bold" flexWrap={"nowrap"}>
                     Segun Adebayo
                     <Badge
                       fontWeight="normal"
                       fontStyle="normal"
                       ml="3"
                       fontSize="6px"
-                      bgColor={'yellow.300'}
-                      color={'white'}
+                      bgColor={"yellow.300"}
+                      color={"white"}
                     >
                       Follow
                     </Badge>
@@ -167,28 +167,28 @@ export function ModalArticleReading({
                 direction="row"
                 h="50px"
                 w="2px"
-                bgColor={'gray.400'}
-                ml={'7'}
+                bgColor={"gray.400"}
+                ml={"7"}
               >
-                <Divider orientation="vertical" bgColor={'gray.400'} />
+                <Divider orientation="vertical" bgColor={"gray.400"} />
               </Stack>
-              <Box ml={'2'} maxW="150px" mr={'1'}>
-                <Text fontSize="8px" color={'gray.400'}>
+              <Box ml={"2"} maxW="150px" mr={"1"}>
+                <Text fontSize="8px" color={"gray.400"}>
                   THEME
                 </Text>
-                <Text fontSize="10px" fontWeight="bold" flexWrap={'wrap'}>
+                <Text fontSize="10px" fontWeight="bold" flexWrap={"wrap"}>
                   UX Design, Business, Sales User Research
                 </Text>
               </Box>
 
-              <Stack direction="row" h="50px" w="2px" bgColor={'gray.400'}>
-                <Divider orientation="vertical" bgColor={'gray.400'} />
+              <Stack direction="row" h="50px" w="2px" bgColor={"gray.400"}>
+                <Divider orientation="vertical" bgColor={"gray.400"} />
               </Stack>
-              <Box maxW="md" ml={'1'}>
-                <Text fontSize="8px" color={'gray.400'}>
+              <Box maxW="md" ml={"1"}>
+                <Text fontSize="8px" color={"gray.400"}>
                   TEMPS
                 </Text>
-                <Text fontSize="10px" fontWeight="bold" flexWrap={'nowrap'}>
+                <Text fontSize="10px" fontWeight="bold" flexWrap={"nowrap"}>
                   4 minutes
                 </Text>
               </Box>

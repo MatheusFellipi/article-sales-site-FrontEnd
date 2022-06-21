@@ -1,7 +1,6 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { Header } from "../components/header/Header";
 import { theme } from "../styles/theme";
-import "../styles/teste.css";
 import { CartProvider } from "../hook/useCart";
 import { AuthProvider } from "../hook/auth";
 

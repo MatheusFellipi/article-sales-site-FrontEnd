@@ -1,6 +1,7 @@
 import { Box, Flex, Heading, Stack, Text } from "@chakra-ui/react";
 import { GetStaticProps } from "next";
 import { Articles } from "../components/articles/Articles";
+
 export default function Home({ article }) {
   return (
     <Box as="main" h="100vh">

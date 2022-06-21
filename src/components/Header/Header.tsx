@@ -13,7 +13,7 @@ export function Header() {
   const [hideOrShow, setHideOrShow] = useState<boolean>(false);
   const [hideOrShowDashBtn, setHideOrShowDashBtn] = useState<boolean>(false);
 
-  const [isLogin, setisLogin] = useState<boolean>(() => {
+  const [isLogin, setIsLogin] = useState<boolean>(() => {
     const { ["togdesign:token"]: token } = parseCookies();
     if (token) {
       return true;
@@ -24,6 +24,7 @@ export function Header() {
 
   useEffect(() => {
     route.route === "/cart" ? setWhitGray(false) : setWhitGray(true);
+
     route.route === "/dashboard/write"
       ? setHideOrShow(true)
       : setHideOrShow(false);
@@ -45,10 +46,12 @@ export function Header() {
     }
 
     const { ["togdesign:token"]: token } = parseCookies();
-    if (token) {
-      setisLogin(true);
+    console.log(token);
+
+    if (token !== undefined) {
+      setIsLogin(true);
     } else {
-      setisLogin(false);
+      setIsLogin(false);
     }
   }, [route.route]);
 
@@ -84,6 +87,7 @@ export function Header() {
               fontSize="12px"
               borderRadius={10}
               w={"106px"}
+              marginTop={"32px"}
               h={"38px"}
             >
               Write now

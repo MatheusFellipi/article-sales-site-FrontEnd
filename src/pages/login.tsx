@@ -51,7 +51,11 @@ export default function Login() {
 
   return (
     <Flex flexDir="column" h="100vh" align="center" justify="center">
-      <Box mt="5rem" w="10rem">
+      <Box
+        mt="5rem"
+        w="10rem"
+        display={{ lg: "block", md: "block", sm: "none" }}
+      >
         <Image src="tog.svg" alt="tog design" />
       </Box>
 

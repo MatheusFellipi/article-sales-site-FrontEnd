@@ -8,10 +8,10 @@ import {
   Stack,
   Divider,
   useDisclosure,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
-import { useEffect, useState } from 'react';
-import { ModalArticleReading } from './ModalArticleReading';
+import { useState } from "react";
+import { ModalArticleReading } from "./ModalArticleReading";
 
 type UsersType = {
   name: string;
@@ -34,7 +34,7 @@ interface ArticlesProps {
 export function Articles({ article }: ArticlesProps) {
   const { onOpen, onClose, isOpen } = useDisclosure();
   const [listArticle, setlistArticle] = useState<ArticlesType[]>(article);
-  const [idArticle, setArticle] = useState<string>('');
+  const [idArticle, setArticle] = useState<string>("");
 
   const handleOpenModalClick = (id) => {
     setArticle(id);
@@ -44,11 +44,14 @@ export function Articles({ article }: ArticlesProps) {
   return (
     <>
       {listArticle.map((article) => (
-        <Box
-          cursor={'pointer'}
+        <Flex
+          flexDirection={"column"}
+          justifyContent={"space-between"}
+          cursor={"pointer"}
           key={article.id}
-          maxW="520px"
-          w="520px"
+          maxW="412px"
+          w="412px"
+          h={"412px"}
           margin="5"
           borderWidth="1px"
           bg="white"
@@ -61,19 +64,19 @@ export function Articles({ article }: ArticlesProps) {
             alt={article.title}
           />
 
-          <Box padding={'3'}>
-            <Box mt="1" as="h4">
+          <Box padding={"3"}>
+            <Box h={"74px"} as="h4">
               <Text fontSize="35px" fontWeight="500">
                 {article.title}
               </Text>
             </Box>
 
-            <Flex mt="0.5rem" alignItems={'flex-start'} justify="flex-start">
-              <Flex w={250} align={'center'}>
+            <Flex mt="0.5rem" alignItems={"flex-start"} justify="flex-start">
+              <Flex w={250} align={"center"}>
                 <Avatar
-                  borderColor={'yellow.300'}
+                  borderColor={"yellow.300"}
                   showBorder
-                  size={'md'}
+                  size={"md"}
                   name={article.user.name}
                   src={article.user.avatar}
                 />
@@ -88,8 +91,8 @@ export function Articles({ article }: ArticlesProps) {
                         fontStyle="normal"
                         ml="3"
                         fontSize="6px"
-                        bgColor={'yellow.300'}
-                        color={'white'}
+                        bgColor={"yellow.300"}
+                        color={"white"}
                       >
                         Follow
                       </Badge>
@@ -101,32 +104,32 @@ export function Articles({ article }: ArticlesProps) {
               </Flex>
 
               <Flex justify="flex-end">
-                <Stack direction="row" h="50px" w="2px" bgColor={'gray.400'}>
-                  <Divider orientation="vertical" bgColor={'gray.400'} />
+                <Stack direction="row" h="50px" w="2px" bgColor={"gray.400"}>
+                  <Divider orientation="vertical" bgColor={"gray.400"} />
                 </Stack>
-                <Box ml={'2'} maxW="130px" w="130px" mr={'1'}>
-                  <Text fontSize="8px" color={'gray.400'}>
+                <Box ml={"2"} maxW="130px" w="130px" mr={"1"}>
+                  <Text fontSize="8px" color={"gray.400"}>
                     THEME
                   </Text>
-                  <Text fontSize="10px" fontWeight="bold" flexWrap={'wrap'}>
+                  <Text fontSize="10px" fontWeight="bold" flexWrap={"wrap"}>
                     {article.themes}
                   </Text>
                 </Box>
-                <Stack direction="row" h="50px" w="2px" bgColor={'gray.400'}>
-                  <Divider orientation="vertical" bgColor={'gray.400'} />
+                <Stack direction="row" h="50px" w="2px" bgColor={"gray.400"}>
+                  <Divider orientation="vertical" bgColor={"gray.400"} />
                 </Stack>
-                <Box maxW="md" ml={'1'} w="46px">
-                  <Text fontSize="8px" color={'gray.400'}>
+                <Box maxW="md" ml={"1"} w="46px">
+                  <Text fontSize="8px" color={"gray.400"}>
                     TEMPS
                   </Text>
-                  <Text fontSize="8px" fontWeight="bold" flexWrap={'nowrap'}>
+                  <Text fontSize="8px" fontWeight="bold" flexWrap={"nowrap"}>
                     4 minutes
                   </Text>
                 </Box>
               </Flex>
             </Flex>
           </Box>
-        </Box>
+        </Flex>
       ))}
       <ModalArticleReading
         handleOpenModalClick={handleOpenModalClick}
