@@ -1,6 +1,8 @@
-import { useState } from "react";
-import { GetServerSideProps } from "next";
+import { BiBook, BiEdit, BiLineChart } from "react-icons/bi";
+import { CardDashInfoComponent } from "../../components/dashboard/cardInfo";
 import { DeleteIcon } from "@chakra-ui/icons";
+import { Formatar } from "../../utils/Formatar";
+import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 import {
   Box,
@@ -15,37 +17,35 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 
-import { BiBook, BiEdit, BiLineChart } from "react-icons/bi";
-
-import { CardDashInfo } from "../../components/cardDashInfo/CardDashInfo";
-import { Formatar } from "../../ultis/Formatar";
-
 type PublishedType = {
-  published: {
-    listArticle: [
-      {
-        id: string;
-        title: string;
-        user_id: string;
-        amount: number;
-        themes: string[];
-        img_url: null;
-        created_at: Date;
-        update_at: Date;
-      }
-    ];
-    count: number;
-    themes: [
-      {
-        themes: string;
-        total: number;
-      }
-    ];
-  };
+  listArticle: [
+    {
+      id: string;
+      title: string;
+      user_id: string;
+      amount: number;
+      themes: string[];
+      img_url: null;
+      created_at: Date;
+      update_at: Date;
+    }
+  ];
+  count: number;
+  themes: [
+    {
+      themes: string;
+      total: number;
+    }
+  ];
 };
 
-export default function Published(published: PublishedType) {
-  const [datas] = useState<PublishedType>(published);
+type Props = {
+  datas: PublishedType;
+};
+
+export default function Published({ datas }: Props) {
+  console.log(datas);
+  
   return (
     <Flex
       p="10"
@@ -76,7 +76,7 @@ export default function Published(published: PublishedType) {
               <Th></Th>
             </Thead>
             <Tbody>
-              {datas.published.listArticle.map((item) => (
+              {datas.listArticle.map((item) => (
                 <Tr key={item.id}>
                   <Td maxW={"305px"}>{item.title}</Td>
                   <Td>Tog.design</Td>
@@ -95,10 +95,9 @@ export default function Published(published: PublishedType) {
           </Table>
         </TableContainer>
       </Box>
-
-      <CardDashInfo
+      <CardDashInfoComponent
         marginRight={"20px"}
-        inf={datas.published.themes}
+        inf={datas.themes}
         links={[
           {
             href: "/dashboard",
@@ -120,18 +119,13 @@ export default function Published(published: PublishedType) {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { ["togdesign:token"]: token } = parseCookies(ctx);
-
-  const responce = await fetch("http://localhost:3333/dashboard/published", {
+  const response = await fetch("http://localhost:3333/dashboard/published", {
     method: "GET",
     headers: {
       authorization: "Bearer " + token,
     },
   });
-
-  console.log(responce);
-
-  const data = await responce.json();
-
+  const datas = await response.json();
   if (!token) {
     return {
       redirect: {
@@ -143,7 +137,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   return {
     props: {
-      published: data.published,
+      datas,
     },
   };
 };

@@ -1,89 +1,59 @@
-import { useState } from "react";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
+import { PurchasedType } from "../../types/components/purchased";
 import { Flex } from "@chakra-ui/react";
-
+import { Articles } from "../../components/articles/articles";
+import { CardDashInfoComponent } from "../../components/dashboard/cardInfo";
 import { BiBook, BiEdit, BiLineChart } from "react-icons/bi";
 
-import { CardDashInfo } from "../../components/cardDashInfo/CardDashInfo";
-import { Articles } from "../../components/articles/Articles";
-
-type PurchasedType = {
-  listItemsPuschasedArticles: [
-    {
-      id: string;
-      title: string;
-      user_id: string;
-      amount: number;
-      themes: string[];
-      img_url: string;
-      created_at: Date;
-      update_at: Date;
-      user: {
-        id: string;
-        name: string;
-        job_role: string;
-        avatar: string;
-      };
-    }
-  ];
-  count: number;
-  themes: [
-    {
-      themes: string;
-      total: number;
-    }
-  ];
+type Props = {
+  data: PurchasedType;
 };
 
-export default function Purchased(purchased: PurchasedType) {
-  const [data] = useState<PurchasedType>(purchased);
+export default function Purchased({ data }: Props) {
   return (
-    <div>oio</div>
-    // <Flex
-    //   p="10"
-    //   width={"100%"}
-    //   alignItems={"flex-start"}
-    //   justifyContent="flex-end"
-    // >
-    //   <Flex flexWrap={"wrap"} pl="15rem" pb="1rem" w="80%">
-    //     <Articles article={data.listItemsPuschasedArticles} />
-    //   </Flex>
-
-    //   <CardDashInfo
-    //     marginRight={"20px"}
-    //     inf={data.themes}
-    //     links={[
-    //       {
-    //         href: "/dashboard",
-    //         icon: BiLineChart,
-    //       },
-    //       {
-    //         href: "/dashboard/published",
-    //         icon: BiEdit,
-    //       },
-    //     ]}
-    //     title={{
-    //       name: "Purchased articles",
-    //       icon: BiBook,
-    //     }}
-    //   />
-    // </Flex>
+    <Flex
+      p="10"
+      width={"100%"}
+      alignItems={"flex-start"}
+      justifyContent="flex-end"
+    >
+      <Flex flexWrap={"wrap"} pl="15rem" pb="1rem" w="80%">
+        {data?.purchased && <Articles article={data.purchased} />}
+      </Flex>
+      <CardDashInfoComponent
+        marginRight={"20px"}
+        inf={data.themes}
+        links={[
+          {
+            href: "/dashboard",
+            icon: BiLineChart,
+          },
+          {
+            href: "/dashboard/published",
+            icon: BiEdit,
+          },
+        ]}
+        title={{
+          name: "Purchased articles",
+          icon: BiBook,
+        }}
+      />
+    </Flex>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { ["togdesign:token"]: token } = parseCookies(ctx);
 
-  const responce = await fetch("http://localhost:3333/dashboard/purchased", {
+  const response = await fetch("http://localhost:3333/dashboard/purchased", {
     method: "GET",
     headers: {
       authorization: "Bearer " + token,
     },
   });
 
-  const data = await responce.json();
-  console.log(data);
+  const data = await response.json();
 
   if (!token) {
     return {
@@ -96,7 +66,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   return {
     props: {
-      purchased: data,
+      data,
     },
   };
 };

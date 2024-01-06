@@ -7,12 +7,6 @@
 O projeto e um loja de artigos 
 
 ## Tecnologia usada
-* Back-end
-  - Typescript
-  - Jest
-  - Express
-  - TypeOrm
-
 * Front-end
   - NextJs
   - Chakra ui

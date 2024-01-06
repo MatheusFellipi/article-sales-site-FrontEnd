@@ -9,46 +9,29 @@ import {
   Divider,
   useDisclosure,
 } from "@chakra-ui/react";
+import { getMonth, getYear } from "date-fns";
 
 import { useState } from "react";
-import { ModalArticleReading } from "./ModalArticleReading";
+import { ArticlesProps } from "../../types/articles";
+import { ModalArticleReading } from "./reading";
 
-type UsersType = {
-  name: string;
-  job_role: string;
-  avatar: string;
-};
-type ArticlesType = {
-  id: string;
-  title: string;
-  themes: string[];
-  img_url: string;
-  created_at: Date;
-  user: UsersType;
-};
-
-interface ArticlesProps {
-  article: ArticlesType[];
-}
-
-export function Articles({ article }: ArticlesProps) {
+export function Articles({ article }: Readonly<ArticlesProps>) {
   const { onOpen, onClose, isOpen } = useDisclosure();
-  const [listArticle, setlistArticle] = useState<ArticlesType[]>(article);
-  const [idArticle, setArticle] = useState<string>("");
+  const [idArticle, setIdArticle] = useState<string>("");
 
-  const handleOpenModalClick = (id) => {
-    setArticle(id);
+  const handleOpenModalClick = (id: string) => {
+    setIdArticle(id);
     onOpen();
   };
 
   return (
     <>
-      {listArticle.map((article) => (
+      {article.map((item) => (
         <Flex
           flexDirection={"column"}
           justifyContent={"space-between"}
           cursor={"pointer"}
-          key={article.id}
+          key={item.id}
           maxW="412px"
           w="412px"
           h={"412px"}
@@ -57,33 +40,32 @@ export function Articles({ article }: ArticlesProps) {
           bg="white"
           borderRadius="lg"
           overflow="hidden"
-          onClick={() => handleOpenModalClick(article.id)}
+          onClick={() => handleOpenModalClick(item.id)}
         >
           <Image
             src="https://img.freepik.com/vetores-gratis/paisagem-de-planeta-alienigena-fundo-marciano_107791-1781.jpg?t=st=1647618475~exp=1647619075~hmac=aadf3e302b96d6d2e7e5a6873d66f5e4e2611c1fb7bd821da85d60418e6e96c1&w=1380"
-            alt={article.title}
+            alt={item.title}
           />
 
           <Box padding={"3"}>
             <Box h={"74px"} as="h4">
               <Text fontSize="35px" fontWeight="500">
-                {article.title}
+                {item.title}
               </Text>
             </Box>
-
-            <Flex mt="0.5rem" alignItems={"flex-start"} justify="flex-start">
+            <Flex mt="0.5rem" justify="flex-start">
               <Flex w={250} align={"center"}>
                 <Avatar
                   borderColor={"yellow.300"}
                   showBorder
                   size={"md"}
-                  name={article.user.name}
-                  src={article.user.avatar}
+                  name={item.user.name}
+                  src={item.user.avatar}
                 />
                 <Box ml="2">
                   <Flex justify="center" align="center">
                     <Text fontSize="12px" fontWeight="bold">
-                      {article.user.name}
+                      {item.user.name}
                     </Text>
                     <div>
                       <Badge
@@ -99,7 +81,7 @@ export function Articles({ article }: ArticlesProps) {
                     </div>
                   </Flex>
 
-                  <Text fontSize="xs">{article.user.job_role}</Text>
+                  <Text fontSize="xs">{item.user.job_role}</Text>
                 </Box>
               </Flex>
 
@@ -112,7 +94,7 @@ export function Articles({ article }: ArticlesProps) {
                     THEME
                   </Text>
                   <Text fontSize="10px" fontWeight="bold" flexWrap={"wrap"}>
-                    {article.themes}
+                    {item?.themes && item.themes.join(", ")}
                   </Text>
                 </Box>
                 <Stack direction="row" h="50px" w="2px" bgColor={"gray.400"}>
@@ -120,10 +102,12 @@ export function Articles({ article }: ArticlesProps) {
                 </Stack>
                 <Box maxW="md" ml={"1"} w="46px">
                   <Text fontSize="8px" color={"gray.400"}>
-                    TEMPS
+                    RELEASE
                   </Text>
-                  <Text fontSize="8px" fontWeight="bold" flexWrap={"nowrap"}>
-                    4 minutes
+                  <Text fontSize="10px" fontWeight="bold" flexWrap={"nowrap"}>
+                    {`${getMonth(item?.created_at)}/${getYear(
+                      item?.created_at
+                    )}`}
                   </Text>
                 </Box>
               </Flex>
@@ -131,12 +115,13 @@ export function Articles({ article }: ArticlesProps) {
           </Box>
         </Flex>
       ))}
-      <ModalArticleReading
-        handleOpenModalClick={handleOpenModalClick}
-        onClose={onClose}
-        isOpen={isOpen}
-        idArticle={idArticle}
-      />
+      {isOpen && (
+        <ModalArticleReading
+          onClose={onClose}
+          isOpen={isOpen}
+          idArticle={idArticle}
+        />
+      )}
     </>
   );
 }

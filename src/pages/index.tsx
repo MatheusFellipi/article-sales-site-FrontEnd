@@ -1,6 +1,6 @@
-import { Box, Flex, Heading, Stack, Text } from "@chakra-ui/react";
+import { Box, Flex, Stack, Text } from "@chakra-ui/react";
 import { GetStaticProps } from "next";
-import { Articles } from "../components/articles/Articles";
+import { Articles } from "../components/articles/articles";
 
 export default function Home({ article }) {
   return (
@@ -10,7 +10,7 @@ export default function Home({ article }) {
           <Articles article={article} />
         </Flex>
 
-        <Box mt={200}>
+        {/* <Box mt={200}>
           <Stack spacing={8}>
             <Box>
               <Flex>
@@ -55,7 +55,7 @@ export default function Home({ article }) {
               </Flex>
             </Box>
           </Stack>
-        </Box>
+        </Box> */}
       </Flex>
     </Box>
   );
@@ -68,6 +68,5 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       article: data,
     },
-    revalidate: 10,
   };
 };

@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 import {
   createContext,
   ReactNode,
@@ -5,24 +7,8 @@ import {
   useEffect,
   useRef,
   useState,
-} from 'react';
-
-type UsersType = {
-  name: string;
-  job_role: string;
-  avatar: string;
-};
-
-type ArticlesType = {
-  amount: number;
-  id: string;
-  title: string;
-  themes: string[];
-  text: string;
-  img_url: string;
-  created_at: string;
-  user: UsersType;
-};
+} from "react";
+import { ArticlesType } from "../types/articles";
 
 interface CartProviderProps {
   children: ReactNode;
@@ -32,26 +18,27 @@ interface CartContextData {
   cart: ArticlesType[];
   addProduct: (article: ArticlesType) => Promise<void>;
   removeProduct: (article: ArticlesType) => void;
+  removeAllProduct: VoidFunction;
   valueTotal: any;
 }
 
 const CartContext = createContext<CartContextData>({} as CartContextData);
 
-export function CartProvider({ children }: CartProviderProps): JSX.Element {
+export function CartProvider({
+  children,
+}: Readonly<CartProviderProps>): JSX.Element {
   const [cart, setCart] = useState<ArticlesType[]>(() => {
-    let storagedCart: any;
-
-    if (typeof window !== 'undefined') {
-      storagedCart = window.localStorage.getItem('@article:cart');
+    let storageCart: any;
+    if (typeof window !== "undefined") {
+      storageCart = window.localStorage.getItem("@article:cart");
     }
-
-    if (storagedCart) {
-      return JSON.parse(storagedCart);
+    if (storageCart) {
+      return JSON.parse(storageCart);
     }
     return [];
   });
-  const [valueTotal, setValueTotal] = useState<any>(0);
 
+  const [valueTotal, setValueTotal] = useState<any>(0);
   const prevCartRef = useRef<ArticlesType[]>();
 
   useEffect(() => {
@@ -63,36 +50,38 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
   useEffect(() => {
     if (cartPreviousValues !== cart) {
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('@article:cart', JSON.stringify(cart));
+      if (typeof window !== "undefined") {
+        localStorage.setItem("@article:cart", JSON.stringify(cart));
         value();
       }
     }
   }, [cart, cartPreviousValues]);
 
   const value = async () => {
+    if (cart.length === 0) {
+      setValueTotal(0);
+      return;
+    }
     const total = cart.reduce((total: any, item) => {
       return total.amount + item.amount;
     });
-    setValueTotal(total);
+    if (cart.length === 1) {
+      setValueTotal(total.amount);
+    } else {
+      setValueTotal(total);
+    }
   };
 
   const addProduct = async (article: ArticlesType) => {
-    try {
-      const updatedCart = [...cart];
-
-      const productExists = updatedCart.find((item) => item.id === article.id);
-
-      if (productExists) {
-        return;
-      }
-      updatedCart.push(article);
-
-      setCart(updatedCart);
-      console.log(cart);
-    } catch (err) {
-      console.log('Erro na adição do produto');
+    const updatedCart = [...cart];
+    const productExists = updatedCart.find((item) => item.id === article.id);
+    if (productExists) {
+      toast("O produto ja adicionado");
+      return;
     }
+    updatedCart.push(article);
+    setCart(updatedCart);
+    toast("O produto foi adicionado no carrinhos");
   };
 
   const removeProduct = (article: ArticlesType) => {
@@ -101,21 +90,25 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       const productIndex = updatedCart.findIndex(
         (product) => product.id === article.id
       );
-
       if (productIndex >= 0) {
         updatedCart.splice(productIndex, 1);
         setCart(updatedCart);
       } else {
         throw Error();
       }
+      toast("O produto foi removido");
     } catch {
-      console.log('Erro na remoção do produto');
+      toast("Erro na remoção do produto");
     }
+  };
+
+  const removeAllProduct = () => {
+    setCart([]);
   };
 
   return (
     <CartContext.Provider
-      value={{ cart, addProduct, removeProduct, valueTotal }}
+      value={{ cart, addProduct, removeProduct, valueTotal, removeAllProduct }}
     >
       {children}
     </CartContext.Provider>

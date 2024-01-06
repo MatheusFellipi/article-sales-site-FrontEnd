@@ -1,8 +1,8 @@
 import { FormEvent, SyntheticEvent, useState } from "react";
 import { Flex, Button, Box, Image, Text, Stack } from "@chakra-ui/react";
 
-import { MFInput } from "../components/form/MFInput";
 import { useAuth } from "../hook/auth";
+import { MFInput } from "../components/Form/MFInput";
 
 type InitialValuesType = {
   email: string;
@@ -18,7 +18,7 @@ type UserType = {
 };
 
 export default function Login() {
-  const { signin } = useAuth();
+  const { signIn } = useAuth();
 
   const initialValue = {
     email: "matheus.fellipi@hotmail.com",
@@ -46,7 +46,7 @@ export default function Login() {
       body: JSON.stringify(values),
     });
     const data: UserType = await responose.json();
-    signin(data);
+    signIn(data);
   };
 
   return (
@@ -112,10 +112,6 @@ export default function Login() {
               isRequired
             />
           </Stack>
-
-          <Text fontSize="15px" align="right" w="100%" mt="5">
-            Forgot your password?
-          </Text>
         </Box>
 
         <Button

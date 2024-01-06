@@ -10,7 +10,7 @@ interface InputProps extends ChakraInputProps {
   label?: string;
 }
 
-export function MFInput({ name, label, ...rest }: InputProps) {
+export function MFInput({ name, label, ...rest }: Readonly<InputProps>) {
   return (
     <FormControl>
       {!!label && <FormLabel htmlFor={name}>{label}</FormLabel>}

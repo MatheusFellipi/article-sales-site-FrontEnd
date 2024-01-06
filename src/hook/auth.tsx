@@ -1,19 +1,12 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useMemo, useState } from "react";
 
-import { destroyCookie, parseCookies, setCookie } from "nookies";
+import { destroyCookie, setCookie } from "nookies";
 import { useRouter } from "next/router";
-
-type UserType = {
-  token: string;
-  user: {
-    email: string;
-    name: string;
-  };
-};
+import { UserType } from "../types/users/auth";
 
 interface AuthContextData {
-  signin: (data: UserType) => void;
-  signout: () => void;
+  signIn: (data: UserType) => void;
+  signOut: () => void;
   user: UserType;
 }
 
@@ -23,19 +16,22 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
-export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
+export function AuthProvider({
+  children,
+}: Readonly<AuthProviderProps>): JSX.Element {
   const route = useRouter();
   const usersInitial = {
     token: "",
     user: {
       email: "",
+      avatar: "",
       name: "",
     },
   } as UserType;
 
   const [user, setUser] = useState<UserType>(usersInitial);
 
-  const signin = (data: UserType) => {
+  const signIn = (data: UserType) => {
     setCookie(null, "togdesign:token", data.token, {
       maxAge: 30 * 24 * 60 * 60,
       path: "/",
@@ -44,14 +40,14 @@ export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
     setUser(data);
   };
 
-  const signout = () => {
+  const signOut = () => {
     setUser(usersInitial);
     destroyCookie(null, "togdesign:token");
     route.push("/login");
   };
 
   return (
-    <AuthContext.Provider value={{ signin, signout, user }}>
+    <AuthContext.Provider value={{ user, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );
