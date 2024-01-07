@@ -1,9 +1,11 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { BiBook, BiEdit, BiLineChart } from "react-icons/bi";
 import { CardDashInfoComponent } from "../../components/dashboard/cardInfo";
+import { controllersArticles } from "../../services/dashboard";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { Formatar } from "../../shared/utils/Formatar";
-import { GetServerSideProps } from "next";
-import { parseCookies } from "nookies";
+import { PublishedType } from "../../types/components/dashboard";
+import { useEffect, useState } from "react";
 import {
   Box,
   Flex,
@@ -14,38 +16,22 @@ import {
   Thead,
   Tbody,
   Button,
-  TableContainer,
+  Text,
 } from "@chakra-ui/react";
 
-type PublishedType = {
-  listArticle: [
-    {
-      id: string;
-      title: string;
-      user_id: string;
-      amount: number;
-      themes: string[];
-      img_url: null;
-      created_at: Date;
-      update_at: Date;
-    }
-  ];
-  count: number;
-  themes: [
-    {
-      themes: string;
-      total: number;
-    }
-  ];
-};
+export default function Published() {
+  const [data, setData] = useState<PublishedType>();
 
-type Props = {
-  datas: PublishedType;
-};
+  const published = () => {
+    controllersArticles.Published().then((res) => {
+      setData(res);
+    });
+  };
 
-export default function Published({ datas }: Props) {
-  console.log(datas);
-  
+  useEffect(() => {
+    published();
+  }, []);
+
   return (
     <Flex
       p="10"
@@ -53,14 +39,10 @@ export default function Published({ datas }: Props) {
       alignItems={"flex-start"}
       justifyContent="flex-end"
     >
-      <Box w="1080px" mr={"100px"}>
-        <TableContainer
-          fontFamily="Montserrat"
-          fontSize="16px"
-          whiteSpace="normal"
-        >
-          <Table variant="simple" size="lg">
-            <Thead>
+      {data?.listArticle.length > 0 ? (
+        <Table variant="simple" size="lg">
+          <Thead>
+            <Tr>
               <Th align="left" fontSize="16px" fontWeight={500}>
                 Article
               </Th>
@@ -74,30 +56,34 @@ export default function Published({ datas }: Props) {
                 Value
               </Th>
               <Th></Th>
-            </Thead>
-            <Tbody>
-              {datas.listArticle.map((item) => (
-                <Tr key={item.id}>
-                  <Td maxW={"305px"}>{item.title}</Td>
-                  <Td>Tog.design</Td>
-                  <Td>{Formatar.Data(item.created_at)}</Td>
-                  <Td>{Formatar.Money(item.amount)}</Td>
-                  <Td>
-                    <Box as="p" w={"100%"}>
-                      <Button colorScheme="gray" variant="ghost">
-                        <DeleteIcon />
-                      </Button>
-                    </Box>
-                  </Td>
-                </Tr>
-              ))}
-            </Tbody>
-          </Table>
-        </TableContainer>
-      </Box>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {data?.listArticle.map((item) => (
+              <Tr key={item.id}>
+                <Td maxW={"305px"}>{item.title}</Td>
+                <Td>Tog.design</Td>
+                <Td>{Formatar.Data(item.created_at)}</Td>
+                <Td>{Formatar.Money(item.amount)}</Td>
+                <Td>
+                  <Box as="p" w={"100%"}>
+                    <Button colorScheme="gray" variant="ghost">
+                      <DeleteIcon />
+                    </Button>
+                  </Box>
+                </Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      ) : (
+        <Text w={"100%"} textAlign={"center"} fontSize={30}>
+          you have no articles written
+        </Text>
+      )}
       <CardDashInfoComponent
         marginRight={"20px"}
-        inf={datas.themes}
+        inf={data?.themes ?? []}
         links={[
           {
             href: "/dashboard",
@@ -116,28 +102,3 @@ export default function Published({ datas }: Props) {
     </Flex>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { ["togdesign:token"]: token } = parseCookies(ctx);
-  const response = await fetch("http://localhost:3333/dashboard/published", {
-    method: "GET",
-    headers: {
-      authorization: "Bearer " + token,
-    },
-  });
-  const datas = await response.json();
-  if (!token) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {
-      datas,
-    },
-  };
-};

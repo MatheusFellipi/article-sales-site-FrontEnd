@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { Badge, Box, Center, Flex, Icon } from "@chakra-ui/react";
 import {
   InfoType,

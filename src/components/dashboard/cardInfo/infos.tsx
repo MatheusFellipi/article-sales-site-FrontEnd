@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { Box, Flex, Progress } from "@chakra-ui/react";
 import { InfoType } from "../../../types/components/cardInfo";
 

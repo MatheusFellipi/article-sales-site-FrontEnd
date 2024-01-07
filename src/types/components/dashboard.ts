@@ -21,6 +21,27 @@ export type DashboardType = {
   options: TypeChartsLine;
 };
 
+export type PublishedType = {
+  listArticle: [
+    {
+      id: string;
+      title: string;
+      user_id: string;
+      amount: number;
+      themes: string[];
+      img_url: null;
+      created_at: Date;
+      update_at: Date;
+    }
+  ];
+  themes: [
+    {
+      themes: string;
+      total: number;
+    }
+  ];
+};
+
 export type DashResponseProps = {
   data: DashboardType;
 };

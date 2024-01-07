@@ -6,7 +6,7 @@ const BASE = "sessions";
 export const controllersAuth = {
   Login: async (value: LoginType) => {
     const { data } = await connection.PostData<UserType, LoginType>(
-      `${BASE}/`,
+      `${BASE}`,
       value
     );
     return data;

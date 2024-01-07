@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { Box, Image, Text, Flex, useDisclosure } from "@chakra-ui/react";
 import { useState } from "react";
 import { ArticlesProps } from "../../types/articles";

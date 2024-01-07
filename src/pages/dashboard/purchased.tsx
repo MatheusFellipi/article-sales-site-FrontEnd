@@ -1,16 +1,25 @@
-import { GetServerSideProps } from "next";
-import { parseCookies } from "nookies";
-import { PurchasedType } from "../../types/components/purchased";
-import { Flex } from "@chakra-ui/react";
+/* eslint-disable react/react-in-jsx-scope */
 import { Articles } from "../../components/articles/articles";
-import { CardDashInfoComponent } from "../../components/dashboard/cardInfo";
 import { BiBook, BiEdit, BiLineChart } from "react-icons/bi";
+import { CardDashInfoComponent } from "../../components/dashboard/cardInfo";
+import { controllersArticles } from "../../services/dashboard";
+import { Flex } from "@chakra-ui/react";
+import { PurchasedType } from "../../types/components/purchased";
+import { useEffect, useState } from "react";
 
-type Props = {
-  data: PurchasedType;
-};
+export default function Purchased() {
+  const [data, setData] = useState<PurchasedType>();
 
-export default function Purchased({ data }: Props) {
+  const published = () => {
+    controllersArticles.Purchased().then((res) => {
+      setData(res);
+    });
+  };
+
+  useEffect(() => {
+    published();
+  }, []);
+
   return (
     <Flex
       p="10"
@@ -23,7 +32,7 @@ export default function Purchased({ data }: Props) {
       </Flex>
       <CardDashInfoComponent
         marginRight={"20px"}
-        inf={data.themes}
+        inf={data?.themes ?? []}
         links={[
           {
             href: "/dashboard",
@@ -42,31 +51,3 @@ export default function Purchased({ data }: Props) {
     </Flex>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { ["togdesign:token"]: token } = parseCookies(ctx);
-
-  const response = await fetch("http://localhost:3333/dashboard/purchased", {
-    method: "GET",
-    headers: {
-      authorization: "Bearer " + token,
-    },
-  });
-
-  const data = await response.json();
-
-  if (!token) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {
-      data,
-    },
-  };
-};

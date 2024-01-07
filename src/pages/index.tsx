@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { Articles } from "../components/articles/articles";
 import { Flex } from "@chakra-ui/react";
 import { GetStaticProps } from "next";

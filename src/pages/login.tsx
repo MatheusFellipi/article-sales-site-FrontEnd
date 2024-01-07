@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { FormEvent, SyntheticEvent, useState } from "react";
 import { Flex, Button, Box, Image, Text, Stack } from "@chakra-ui/react";
 import { useAuth } from "../hook/auth";
@@ -24,9 +25,14 @@ export default function Login() {
   }
   const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
-    controllersAuth.Login(values).then((res) => {
-      signIn(res);
-    });
+    controllersAuth
+      .Login(values)
+      .then((res) => {
+        signIn(res);
+      })
+      .catch((res) => {
+        console.log(res);
+      });
   };
 
   return (

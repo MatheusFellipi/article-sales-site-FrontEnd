@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import NextLink from "next/link";
 import { Box, Button, Flex, useDisclosure } from "@chakra-ui/react";
 import { createEditor, Descendant } from "slate";
@@ -12,6 +13,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { ValuesArticleSubmitType } from "../../../types/articles";
 import { check } from "./validade";
+import { controllersArticles } from "../../../services/articles";
 
 export const WriteComponents = () => {
   const route = useRouter();
@@ -50,13 +52,13 @@ export const WriteComponents = () => {
       text: text,
     });
 
-    connection
-      .PostData("article", values)
+    controllersArticles
+      .Post(values)
       .then((res) => {
-        toast("created article");
         route.push("/dashboard/published");
+        toast("created article");
       })
-      .catch((res) => {
+      .then((res) => {
         toast("not create article");
       });
   };
