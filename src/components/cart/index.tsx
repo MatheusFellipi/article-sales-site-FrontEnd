@@ -1,23 +1,20 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { Box, Divider, Flex, Stack, Text } from "@chakra-ui/react";
-import { connection } from "../../services/connection";
 import { Formatar } from "../../shared/utils/Formatar";
 import { ResumedCart } from "./resumed";
 import { TableCart } from "./tabela";
 import { useCart } from "../../hook/useCart";
+import { controllersSales } from "../../services/sales";
 
 export const CartComponents = () => {
   const { cart, removeProduct, valueTotal, removeAllProduct } = useCart();
 
   const handleSubmit = () => {
     if (cart.length === 0) return;
-    const ids_product = cart.map((item) => item.id);
-    connection
-      .PostData<any, any>("sale", {
-        ids_product,
-      })
-      .then(() => {
-        removeAllProduct();
-      });
+    const idsProduct = cart.map((item) => item.id);
+    controllersSales.Sales({ ids_product: idsProduct }).then(() => {
+      removeAllProduct();
+    });
   };
 
   return (
