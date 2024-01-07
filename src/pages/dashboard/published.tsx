@@ -1,7 +1,7 @@
 import { BiBook, BiEdit, BiLineChart } from "react-icons/bi";
 import { CardDashInfoComponent } from "../../components/dashboard/cardInfo";
 import { DeleteIcon } from "@chakra-ui/icons";
-import { Formatar } from "../../utils/Formatar";
+import { Formatar } from "../../shared/utils/Formatar";
 import { GetServerSideProps } from "next";
 import { parseCookies } from "nookies";
 import {

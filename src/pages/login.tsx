@@ -1,21 +1,8 @@
 import { FormEvent, SyntheticEvent, useState } from "react";
 import { Flex, Button, Box, Image, Text, Stack } from "@chakra-ui/react";
-
 import { useAuth } from "../hook/auth";
 import { MFInput } from "../components/Form/MFInput";
-
-type InitialValuesType = {
-  email: string;
-  password: string;
-};
-
-type UserType = {
-  token: string;
-  user: {
-    email: string;
-    name: string;
-  };
-};
+import { controllersAuth } from "../services/auth";
 
 export default function Login() {
   const { signIn } = useAuth();
@@ -25,28 +12,21 @@ export default function Login() {
     password: "1234578",
   };
 
-  const [values, setValues] = useState<InitialValuesType>(initialValue);
+  const [values, setValues] = useState(initialValue);
 
   function handleChanger(event: FormEvent<HTMLInputElement>) {
     const fieldName = event.currentTarget.getAttribute("name");
     const value = event.currentTarget.value;
-
     setValues({
       ...values,
       [fieldName]: value,
     });
   }
-
-  const handleSubmit = async (event: SyntheticEvent) => {
+  const handleSubmit = (event: SyntheticEvent) => {
     event.preventDefault();
-
-    const responose = await fetch("http://localhost:3333/sessions", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
+    controllersAuth.Login(values).then((res) => {
+      signIn(res);
     });
-    const data: UserType = await responose.json();
-    signIn(data);
   };
 
   return (
@@ -58,7 +38,6 @@ export default function Login() {
       >
         <Image src="tog.svg" alt="tog design" />
       </Box>
-
       <Flex
         as="form"
         flexDir="column"
@@ -79,7 +58,6 @@ export default function Login() {
         >
           <Text textShadow="1px 1px #ffff">Sign in</Text>
         </Box>
-
         <Box>
           <Stack spacing={"10"}>
             <MFInput
@@ -96,7 +74,6 @@ export default function Login() {
               onChange={handleChanger}
               isRequired
             />
-
             <MFInput
               placeholder="Password"
               id="password"
@@ -113,7 +90,6 @@ export default function Login() {
             />
           </Stack>
         </Box>
-
         <Button
           w="200px"
           h="40px"

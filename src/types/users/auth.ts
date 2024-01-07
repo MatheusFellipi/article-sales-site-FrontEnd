@@ -6,3 +6,8 @@ export type UserType = {
     avatar: string;
   };
 };
+
+export type LoginType = {
+  email: string;
+  password: string;
+};

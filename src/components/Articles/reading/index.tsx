@@ -16,9 +16,9 @@ import { createEditor, Descendant } from "slate";
 import { Editable, ReactEditor, Slate, withReact } from "slate-react";
 
 import { ArticlesType } from "../../../types/articles";
-import { connection } from "../../../services/connection";
 import { BtnBuyingComponent } from "./btnBuying";
-import { FooterComponent } from "./footer";
+import { FooterComponent } from "../footer";
+import { controllersArticles } from "../../../services/articles";
 
 interface Props {
   onClose: () => void;
@@ -35,14 +35,11 @@ export function ModalArticleReading({
   const [text, setText] = useState<Descendant[]>();
   const editor = useMemo(() => withReact(createEditor() as ReactEditor), []);
 
-  const details = (idArticle: string) => {
-    connection
-      .GetData<ArticlesType>(`http://localhost:3333/article/${idArticle}`)
-      .then(({ data }) => {
-        setArticle(data);
-        const textFormattedJson = JSON.parse(data.text);
-        setText(textFormattedJson);
-      });
+  const details = (id: string) => {
+    controllersArticles.ById(id).then((data) => {
+      setArticle(data);
+      setText(data.text);
+    });
   };
 
   useEffect(() => {
@@ -57,7 +54,10 @@ export function ModalArticleReading({
         <ModalBody>
           <Flex justifyContent={"center"}>
             <Box maxW={"500"} pos="relative">
-              <Image src={article?.img_url} alt={article?.title} />
+              <Image
+                src={article?.img_url ?? "not_img.jpeg"}
+                alt={article?.title}
+              />
               <Box
                 padding={"3"}
                 mt="1"
@@ -76,10 +76,7 @@ export function ModalArticleReading({
                 />
               )}
               {!!text && (
-                <Slate
-                  editor={editor}
-                  initialValue={text}
-                >
+                <Slate editor={editor} initialValue={text}>
                   <Editable readOnly />
                 </Slate>
               )}
@@ -96,4 +93,3 @@ export function ModalArticleReading({
     </Modal>
   );
 }
-

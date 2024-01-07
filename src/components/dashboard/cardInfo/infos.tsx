@@ -6,14 +6,9 @@ interface Props {
 }
 
 export const InfosComponent = ({ inf }: Readonly<Props>) => (
-  <>
+  <Flex flexDir={{ base: "row", md: "column", }}>
     {inf.map((item) => (
-      <Box
-        pl={"5.2rem"}
-        pt={"5"}
-        justifyContent={"flex-start"}
-        key={item.themes}
-      >
+      <Box pl="6" key={item.themes}>
         <Box as={"p"} fontSize={"12px"} color={"gray.600"} overflow="hidden">
           {item.themes}
         </Box>
@@ -32,5 +27,5 @@ export const InfosComponent = ({ inf }: Readonly<Props>) => (
         </Flex>
       </Box>
     ))}
-  </>
+  </Flex>
 );

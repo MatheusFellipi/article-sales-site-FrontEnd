@@ -1,6 +1,6 @@
 import api, { ResponseType } from "./api";
 
-type ReturnType<T> = ResponseType<{ data: T }>;
+type ReturnType<T> = ResponseType<T>;
 
 class Connection {
   async GetData<T>(url_request: string): Promise<ReturnType<T>> {

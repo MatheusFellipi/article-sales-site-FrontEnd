@@ -5,7 +5,7 @@ import { parseCookies } from "nookies";
 import { useEffect, useState } from "react";
 import { NavHeaderComponent } from "./nav";
 
-export function HeaderComponent() {
+export default function HeaderComponent() {
   const route = useRouter();
   const [whitGray, setWhitGray] = useState<boolean>(false);
   const [hideOrShow, setHideOrShow] = useState<boolean>(false);
@@ -52,17 +52,15 @@ export function HeaderComponent() {
     <Flex
       hidden={hideOrShow}
       as="header"
+      justifyContent={"space-between"}
+      height={"120px"}
       pr={20}
       pl={20}
       pt={6}
-      justifyContent={"space-between"}
-      height={"120px"}
     >
-      <Box ml={{ sm: "1.5", md: "20" }}>
+      <Box cursor="pointer" w="10rem">
         <NextLink href="/" passHref>
-          <Box cursor="pointer" w="10rem">
-            <Image src="tog.svg" alt="tog design" />
-          </Box>
+          <Image src="tog.svg" alt="tog design" />
         </NextLink>
       </Box>
       <NavHeaderComponent

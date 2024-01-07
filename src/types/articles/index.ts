@@ -1,3 +1,5 @@
+import { Descendant } from "slate";
+
 type UsersType = {
   name: string;
   job_role: string;
@@ -19,3 +21,11 @@ export type ArticlesType = {
 export interface ArticlesProps {
   article: ArticlesType[];
 }
+
+export type ValuesArticleSubmitType = {
+  text: Descendant[];
+  themes: { label: string; value: string }[];
+  title: string;
+  img_url: string;
+  amount: number;
+};

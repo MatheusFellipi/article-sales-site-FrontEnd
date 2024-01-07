@@ -1,4 +1,4 @@
-import { Formatar } from "../../utils/Formatar";
+import { Formatar } from "../../shared/utils/Formatar";
 import { Box, Flex, Text, Button, Divider, Stack } from "@chakra-ui/react";
 
 interface Props {

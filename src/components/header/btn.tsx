@@ -1,12 +1,13 @@
-import NextLink from "next/link";
 import { Button } from "@chakra-ui/react";
 import { useAuth } from "../../hook/auth";
+import { useRouter } from "next/router";
 
 export function HeaderBtnComponent({ isLogin }) {
+  const router = useRouter();
   const { signOut } = useAuth();
 
   return (
-    <>
+    <div>
       {isLogin && (
         <Button
           onClick={signOut}
@@ -25,17 +26,16 @@ export function HeaderBtnComponent({ isLogin }) {
         </Button>
       )}
       {!isLogin && (
-        <NextLink href="/login" passHref>
-          <Button
-            color={"white"}
-            bgColor={"purple.600"}
-            fontWeight="bold"
-            fontSize="12px"
-          >
-            Sign In
-          </Button>
-        </NextLink>
+        <Button
+          color={"white"}
+          bgColor={"purple.600"}
+          fontWeight="bold"
+          fontSize="12px"
+          onClick={() => router.push("/login")}
+        >
+          Sign In
+        </Button>
       )}
-    </>
+    </div>
   );
 }

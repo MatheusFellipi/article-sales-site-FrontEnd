@@ -10,12 +10,18 @@ import { SubmitComponent } from "./submit";
 import { connection } from "../../../services/connection";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { ValuesArticleSubmitType } from "../../../types/articles";
+import { check } from "./validade";
 
 export const WriteComponents = () => {
   const route = useRouter();
   const { onOpen, onClose, isOpen } = useDisclosure();
-  const [text, setText] = useState<Descendant[]>(initialValue);
-  const [values, setValues] = useState({
+  const [text, setText] = useState<Descendant[]>([
+    {
+      children: [{ text: "Tell you story..." }],
+    },
+  ]);
+  const [values, setValues] = useState<ValuesArticleSubmitType>({
     text: [],
     themes: [{ label: "", value: "" }],
     title: "",
@@ -36,31 +42,14 @@ export const WriteComponents = () => {
     []
   );
 
-  const check = () => {
-    if (values.amount === 0) {
-      toast("Amount not is zero");
-      return;
-    }
-    if (values.themes.length === 0) {
-      toast("Choose theme");
-      return;
-    }
-    if (values.text.length === 0) {
-      toast("article not null");
-      return;
-    }
-    if (values.title.length === 0) {
-      toast("title is not null");
-      return;
-    }
-  };
-
   const handleSubmit = () => {
-    check();
+    if (check(values)) return;
+
     setValues({
       ...values,
       text: text,
     });
+
     connection
       .PostData("article", values)
       .then((res) => {
@@ -86,7 +75,6 @@ export const WriteComponents = () => {
           </Button>
         </Flex>
       </Flex>
-
       <EditComponent
         editor={editor}
         value={text}
@@ -104,10 +92,3 @@ export const WriteComponents = () => {
     </Box>
   );
 };
-
-const initialValue: Descendant[] = [
-  {
-    type: "paragraph",
-    children: [{ text: "This is editable " }],
-  },
-];

@@ -1,32 +1,38 @@
+import "react-toastify/dist/ReactToastify.css";
+import "../shared/styles/table.css";
+
+import dynamic from "next/dynamic";
 import { AuthProvider } from "../hook/auth";
 import { CartProvider } from "../hook/useCart";
 import { ChakraProvider } from "@chakra-ui/react";
-import { HeaderComponent } from "../components/header";
 import { theme } from "../styles/theme";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
+const HeaderComponent = dynamic(() => import("../components/header"), {
+  ssr: false,
+});
 
 function MyApp({ Component, pageProps }) {
   return (
-    <CartProvider>
-      <AuthProvider>
+    <AuthProvider>
+      <CartProvider>
         <ChakraProvider theme={theme}>
           <HeaderComponent />
           <Component {...pageProps} />
+          <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            theme="light"
+          />
         </ChakraProvider>
-        <ToastContainer
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          theme="light"
-        />
-      </AuthProvider>
-    </CartProvider>
+      </CartProvider>
+    </AuthProvider>
   );
 }
 

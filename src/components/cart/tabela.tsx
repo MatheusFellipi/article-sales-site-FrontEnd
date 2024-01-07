@@ -1,7 +1,7 @@
 import { DeleteIcon } from "@chakra-ui/icons";
 import { Table, Thead, Tbody, Button, Tr, Th, Td } from "@chakra-ui/react";
 import { ArticlesType } from "../../types/articles";
-import { Formatar } from "../../utils/Formatar";
+import { Formatar } from "../../shared/utils/Formatar";
 
 interface Props {
   itens: ArticlesType[];

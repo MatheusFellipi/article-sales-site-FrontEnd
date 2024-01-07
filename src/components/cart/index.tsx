@@ -1,6 +1,6 @@
 import { Box, Divider, Flex, Stack, Text } from "@chakra-ui/react";
 import { connection } from "../../services/connection";
-import { Formatar } from "../../utils/Formatar";
+import { Formatar } from "../../shared/utils/Formatar";
 import { ResumedCart } from "./resumed";
 import { TableCart } from "./tabela";
 import { useCart } from "../../hook/useCart";
@@ -55,7 +55,6 @@ export const CartComponents = () => {
           </Flex>
         </Box>
       </Flex>
-
       <ResumedCart valueTotal={valueTotal} handleBuying={handleSubmit} />
     </Flex>
   );

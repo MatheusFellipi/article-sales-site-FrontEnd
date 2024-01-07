@@ -21,17 +21,14 @@ export function CardDashInfoComponent({
   marginRight,
 }: Readonly<Props>) {
   return (
-    <Flex
+    <Box
       bgColor={"#ECEDF3"}
+      mb={{ sm: "5rem", }}
+      pb={{sm:"2rem"}}
       borderRadius="2rem"
-      flexDirection={"column"}
       marginRight={marginRight}
-      width={420}
-      maxW={420}
-      height={700}
-      maxH={700}
     >
-      <Flex p="6" width="100%" alignItems="center" justifyContent={"center"}>
+      <Flex p="6" width="100%">
         <Flex
           justifyContent={"center"}
           alignItems={"center"}
@@ -39,16 +36,16 @@ export function CardDashInfoComponent({
         >
           <Badge bgColor={"yellow.400"} p={"0.5"}>
             <Center>
-              <Icon as={title?.icon} w="1.2rem" h="1.2rem" />
+              <Icon as={title?.icon} w="1.5rem" h="1.5rem" />
             </Center>
           </Badge>
           <Box ml="2" mt="1" as="h4" lineHeight="tight" isTruncated>
             {title?.name}
           </Box>
         </Flex>
-        <LinksComponent links={links}/>
+        <LinksComponent links={links} />
       </Flex>
       <InfosComponent inf={inf} />
-    </Flex>
+    </Box>
   );
 }

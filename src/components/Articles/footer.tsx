@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 
 import { getMonth, getYear } from "date-fns";
-import { ArticlesType } from "../../../types/articles";
+import { ArticlesType } from "../../types/articles";
 
 interface Props {
   article: ArticlesType;

@@ -1,8 +1,9 @@
 import { BiBook, BiEdit, BiLineChart } from "react-icons/bi";
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, Grid } from "@chakra-ui/react";
 import { BestsellersComponents } from "./bestsellers";
 import { CardDashInfoComponent } from "./cardInfo";
 import { DashboardType } from "../../types/components/dashboard";
+import { ChartsLineComponent } from "./chart";
 
 type Props = {
   data: DashboardType;
@@ -10,25 +11,21 @@ type Props = {
 
 export const DashboardComponent = ({ data }: Props) => {
   return (
-    <Flex justify={"end"} p="10">
-      <Flex
-        flexDirection={"column"}
-        borderRadius={10}
-        justify={"start"}
-        mr={"96px"}
-        w={1080}
-      >
+    <Flex as="main" flexDir={{ base: "column", xl: "row" }} justifyContent={"space-around"}>
+      <Box mb={"32px"}>
         <Box
           mb={"32px"}
           bgColor={"white"}
           w={900}
+          p={4}
           borderRadius={10}
           as={"section"}
-        ></Box>
+        >
+          <ChartsLineComponent data={data.options} />
+        </Box>
         <BestsellersComponents sales={data?.bestSales || []} />
-      </Flex>
+      </Box>
       <CardDashInfoComponent
-        marginRight={"20px"}
         inf={data.totals}
         links={[
           {

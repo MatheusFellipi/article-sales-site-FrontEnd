@@ -10,10 +10,10 @@ export function LinksComponent({ links }: Readonly<Props>) {
   return (
     <Flex justifyContent={"space-around"} w="100px" m={5}>
       {links.map((item) => (
-        <Box key={item.href} cursor="pointer" bgColor={"white"}>
+        <Box key={item.href} cursor="pointer" borderRadius={2} bgColor={"white"}>
           <NextLink href={item.href} passHref>
             <Center>
-              <Icon as={item.icon} />
+              <Icon as={item.icon} w="1.5rem" h="1.5rem" />
             </Center>
           </NextLink>
         </Box>
