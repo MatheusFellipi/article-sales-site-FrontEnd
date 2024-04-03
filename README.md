@@ -1,12 +1,18 @@
 # Sobre a aplicação
 
-O projeto e um loja de artigos
+  E um projeto e um loja de vendas de artigos, Estou desenvolvendo o
+  projeto para testa meus conhecimento na área de programação estudo
+  as linguagens Typescript, Next.js e teste automatizado com Jest. O
+  projeto esta parado por pastante tempo, a ultima fez que eu entrei
+  no projeto fiz poucas mudanças
 
 ## Tecnologia usada
 
 - Front-end
   - NextJs
   - Chakra ui
+
+- [Back-end](https://github.com/MatheusFellipi/Article-Sales-Site)
 
 ### designer do front-end
 
